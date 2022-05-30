@@ -7,14 +7,14 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed":"node models/seeds/urlSeeder.js"
+    "seed": "node models/seeds/urlSeeder.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
-    "express-handlebars": "^6.0.6",
+    "express-handlebars": "^4.0.2",
     "mongoose": "^6.3.4"
   }
 }
