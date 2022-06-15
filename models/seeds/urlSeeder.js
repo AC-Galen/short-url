@@ -1,18 +1,36 @@
-const mongoose = require('mongoose')
-const url = require('../url')
+const URL = require('../url')
+const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+const collection = characters.split('')
 
-mongoose.connect(process.env.SHORT_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+function sample(array) {
+  const index = Math.floor(Math.random() * array.length)
+  return array[index]
+}
 
-const db = mongoose.connection
+function isValid(routes) {
+  return URL.find({ shortenURL: routes }).lean()
+    .then(url => {
+      return !Boolean(url.length)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
 
-db.on('error', () => {
-  console.log('mongodb error')
-})
-db.once('open', () => {
-  console.log('mongodb connected!')
-
+async function generateURL(originalURL) {
+  let routes = ''
   for (let i = 0; i < 5; i++) {
-    url.create({ url: `url-${i}`})
+    routes += sample(collection)
   }
-  console.log('done')
-})
+  if (await isValid(routes)) {
+    console.log('isValid')
+    URL.create({ originalURL, shortenURL: routes })
+      .then(url => { console.log(`${url} saved`) })
+      .catch(error => console.log(error))
+    return routes
+  } else {
+    generateURL(originalURL)
+  }
+}
+
+module.exports = generateURL

@@ -1,12 +1,15 @@
-const  mongoose = require('mongoose')
+const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const urlSchema = new Schema ({
-  url: {
+
+const urlSchema = new Schema({
+  originalURL: {
     type: String,
     required: true
+    
   },
-  done: {
-    type: Boolean
+  shortenURL: {
+    type: String,
+    required: true
   }
 })
-module.exports = mongoose.model('url', urlSchema)
+module.exports = mongoose.model('URL', urlSchema)
