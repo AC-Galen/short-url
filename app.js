@@ -7,7 +7,7 @@ require('./config/mongoose')
 const URL = require('./models/url')
 
 const app = express()
-const port = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
@@ -39,6 +39,6 @@ app.get("/:shortenURL", (req, res) => {
 });
 
 
-app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Listening on http://localhost:${PORT}`)
 })
